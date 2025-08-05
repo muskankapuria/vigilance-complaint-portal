@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vigilance Complaint Portal</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h1>Welcome to Vigilance Complaint Portal</h1>
+  <p>This app is connected to Supabase.</p>
+
+  <script>
+    // Initialize Supabase client
+    const { createClient } = supabase;
+    const supabaseUrl = "https://ecqdvrjbzehdakzhmbwf.supabase.co";
+    const supabaseKey = "YOUR_SUPABASE_ANON_KEY";  // Replace this securely in production
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+    // Example: Check connection
+    async function testConnection() {
+      const { data, error } = await supabaseClient.from("test").select("*");
+      console.log("Test data:", data, "Error:", error);
+    }
+
+    testConnection();
+  </script>
+</body>
+</html>
