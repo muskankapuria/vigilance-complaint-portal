@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vigilance Complaint Portal</title>
+</head>
+<body>
+  <h1>Welcome to Vigilance Complaint Portal</h1>
+  <form id="complaintForm">
+    <input type="text" placeholder="Your Name" id="name" required><br><br>
+    <input type="email" placeholder="Email" id="email" required><br><br>
+    <select id="type">
+      <option>Fraud</option>
+      <option>Harassment</option>
+      <option>Corruption</option>
+    </select><br><br>
+    <textarea id="desc" placeholder="Complaint Details"></textarea><br><br>
+    <button type="submit">Submit Complaint</button>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://https://ecqdvrjbzehdakzhmbwf.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVjcWR2cmpiemVoZGFremhtYndmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ0MDc3MTQsImV4cCI6MjA2OTk4MzcxNH0.yHYv4pKGNAwtCXk_kA4LzD2cCGduzrMsINYnK4t_tvI';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    document.getElementById('complaintForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const complaint_type = document.getElementById('type').value;
+      const description = document.getElementById('desc').value;
+
+      const { data, error } = await supabase
+        .from('complaints')
+        .insert([{ name, email, complaint_type, description }]);
+
+      if (error) {
+        alert('Error: ' + error.message);
+      } else {
+        alert('Complaint submitted!');
+        document.getElementById('complaintForm').reset();
+      }
+    });
+  </script>
+</body>
+</html>
